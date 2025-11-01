@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart IOT To Do List</title>
+  <link href="./output.css" rel="stylesheet">
+</head>
+<style>
+  body{
+    background-color: #EBEEF9;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+<body>
+  <div class ="sticky top-0 z-50 h-[110px] bg-white shadow-lg flex items-center justify-center">
+      <img src="./img/image2.png" class="w-[60px] h-[60px]">
+      <a href ="englishPage.html" class ="text-3xl ml-5 font-bold text-[#8294D6] hover:text-[#535E85] transition-transform duration-200 hover:scale-107">Smart IOT To Do List</a>
+      <a href ="dashboard.html" class ="text-2xl ml-115 font-bold text-[#8294D6] hover:text-[#535E85] transition-transform duration-200 hover:scale-107">DASHBOARD</a>
+      <a href ="englishPage.html" class ="text-2xl ml-10 font-bold text-[#8294D6] hover:text-[#535E85] transition-transform duration-200 hover:scale-107">DOCUMENTATION</a>
+      <a href ="#member" class ="text-2xl ml-10 font-bold text-[#8294D6] hover:text-[#535E85] transition-transform duration-200 hover:scale-107">MEMBERS</a>
+
+      <a href="index.html" class="group relative inline-block ml-10 w-[69px] h-[25px] transition-transform duration-200 hover:scale-105">
+        <img src="./img/thai1.png" class="absolute inset-0 w-[68px] h-[26px]" alt="TH">
+      </a>
+
+    </div>
+  </div>
+  <div>
+    <h1 class ="flex justify-center text-5xl mt-20 font-bold text-[#8294D6]">Documentation</h1>
+    <p class="flex justify-center text-center mt-10 text-xl text-[#525353] max-w-[1000px] mx-auto">Smart IoT To-Do List System
+
+This project is designed to address problems related to forgetting task deadlines or assigned work, as well as disorganized task management, which can lead to delays and reduced productivity in planning and completing tasks. The system provides notifications through an Arduino-based device. Users can record tasks and configure reminder settings via a web application, with data transmitted to the Arduino in real time.
+
+The system delivers alerts using sound notifications, a display screen, and blinking indicator lights to signal tasks that are due. This enables users to create tasks, monitor progress, and receive timely reminders, ensuring efficient task management and helping users complete assignments on time.</p>
+  </div>
+  <div>
+    <h1 class="flex justify-center text-5xl mt-15 font-bold text-[#8294D6]">Hardware Used</h1>
+    <img src="./img/img1.png" class ="mt-17 ml-15 w-[400px] h-[400px]">
+  </div>
+  <div>
+    <h1 class="flex justify-center text-5xl font-bold mt-20 text-[#8294D6]">What make this project special?</h1>
+    <p class="flex justify-center text-center text-xl mt-10 text-[#525353] max-w-[1000px] mx-auto">The key highlight of our project is its ability to provide real-time task notifications through an Arduino device using sound alerts, a display screen, and flashing lights — unlike typical task management systems that only show reminders on a computer or website, this system allows users to receive immediate, physical alerts for improved efficiency and awareness.</p>
+  </div>
+  <div class="justify-center items-center">
+    <h1 class="flex justify-center text-5xl mt-20 font-bold text-[#8294D6]">Source Code</h1>
+    <div class="flex justify-center items-center">
+        <a href="https://github.com/LCUKP/Project-Physical-Computing-2025" class="flex justify-center items-center bg-white rounded-2xl shadow-lg h-16 w-[150px] mt-10 text-center font-bold text-3xl text-[#525353] transition-transform duration-200 hover:scale-105 cursor-pointer">Github</a>
+    </div>
+    <div class="bg-white w-[850px] h-[680px] mx-auto p-10 mt-12 shadow-lg rounded-xl">
+        <div class="w-[800px] h-[600px] p-2 bg-white overflow-y-scroll mx-auto transition-transform duration-200 hover:scale-101">
+        <pre class="bg-gray-100 p-4 rounded-lg text-left font-mono text-base">
+#include "WiFiS3.h"
+#include "MQUnifiedsensor.h"
+#include "SPI.h" 
+#include "Wire.h" 
+#include "Adafruit_GFX.h" 
+#include "Adafruit_SSD1306.h"  
+
+#define BLYNK_TEMPLATE_ID "FROM THE SCREEN" 
+#define BLYNK_TEMPLATE_NAME "TO THE RING" 
+#define BLYNK_AUTH_TOKEN "TO THE PEN TO THE KING" 
+
+#include "BlynkSimpleWifi.h"  
+char auth[] = BLYNK_AUTH_TOKEN; 
+char ssid[] = ""; 
+// Wi-Fi name char pass[] = ""; 
+// Wi-Fi password  
+
+#define placa "Arduino UNO" 
+#define Voltage_Resolution 5 
+#define pin A0 
+#define type "MQ-135" 
+#define ADC_Bit_Resolution 10 
+#define RatioMQ135CleanAir 3.6 
+#define pin_but1 4 
+#define OLED_RESET 4
+
+int page = 0; 
+int limit = 6; 
+int ptmp;   
+
+MQ135(placa, Voltage_Resolution, ADC_Bit_Resolution, pin, type); 
+Adafruit_SSD1306 display(OLED_RESET);  
+
+int red_but = 10; 
+int yel_but = 9; 
+int gre_but = 8; 
+int buzz = 7;  
+
+void setup() {
+    Serial.begin(9600); // Init serial port  
+    display.begin(SSD1306_SWITCHCAPVCC, 0x3c); 
+    display.clearDisplay();  
+    pinMode(red_but,OUTPUT); 
+    pinMode(yel_but,OUTPUT); 
+    pinMode(gre_but,OUTPUT); 
+    pinMode(buzz,OUTPUT);  
+    
+    int but1 = 0; 
+    pinMode(pin_but1,INPUT);  
+    Serial.print("Im Starting"); 
+    Blynk.begin(auth, ssid, pass);
+
+    Serial.print("connected!"); 
+    MQ135.setRegressionMethod(1); 
+    MQ135.init(); 
+    Serial.print("Calibrating please wait."); 
+    float calcR0 = 0; 
+
+    for (int i = 1; i <= 10; i++) { 
+        MQ135.update(); 
+        calcR0 += MQ135.calibrate(RatioMQ135CleanAir); 
+        Serial.print("."); 
+    } 
+    MQ135.setR0(calc)}
+    </pre>
+    </div>
+    </div>
+    </div>
+    <section class="mx-auto max-w-5xl px-4 py-10">
+  <h1 class="flex justify-center text-5xl mt-20 mb-10 font-bold text-[#8294D6]">Learn more about our Project</h1>
+    <div class="relative w-full overflow-hidden rounded-xl shadow-lg bg-black" style="padding-top:56.25%;">
+      <iframe
+        class="absolute inset-0 w-full h-full"
+        src="https://www.youtube.com/embed/zcwLETUvpwc?si=7_p55COQrSyDC3gX" 
+        title="YouTube video"
+        frameborder="0"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+</section>
+    <div id = "member">
+        <h1 class="flex justify-center text-5xl mt-20 font-bold text-[#8294D6]">Our Team</h1>
+    </div>
+    <div class = "flex justify-center mt-17">
+    <div class= "bg-white w-[350px] h-[420px] rounded-2xl mx-10 shadow-lg transition-transform duration-200 hover:scale-101">
+      <img src="./img/member3.png" class="w-[350px] h-[320px] mt-6 mx-auto">
+      <div class = "flex flex-col items-center text-center mt-5">
+        <p class="text-[#525353] font-bold">Ploychompoo Jindamai 67070110</p>
+      </div>
+    </div>
+    <div class="bg-white w-[350px] h-[420px] rounded-2xl mx-10 shadow-lg transition-transform duration-200 hover:scale-101">
+        <img src="./img/member3.png" class="w-[350px] h-[320px] mt-6 mx-auto">
+        <div class="flex flex-col items-center text-center mt-5">
+            <p class="text-[#525353] font-bold">Puwanas Chaichitchaem 67070139</p>
+        </div>
+    </div>
+    </div>
+    <div class = "flex justify-center mt-10">
+    <div class="bg-white w-[350px] h-[420px] rounded-2xl mx-10 shadow-lg transition-transform duration-200 hover:scale-101">
+        <img src="./img/member3.png" class="w-[350px] h-[320px] mt-6 mx-auto">
+        <div class="flex flex-col items-center text-center mt-5">
+            <p class="text-[#525353] font-bold">Yadakorakot Boonrai 67070223</p>
+        </div>
+    </div>
+    <div class="bg-white w-[350px] h-[420px] rounded-2xl mx-10 shadow-lg transition-transform duration-200 hover:scale-101">
+        <img src="./img/member3.png" class="w-[350px] h-[320px] mt-6 mx-auto">
+        <div class="flex flex-col items-center text-center mt-5">
+            <p class="text-[#525353] f">Nittayaporn Kongkeaw 67070244</p>
+        </div>
+    </div>
+    </div>
+  </div>
+  <div class = "h-30"></div>
+</body> 
+</html>
