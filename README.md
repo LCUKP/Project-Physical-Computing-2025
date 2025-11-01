@@ -1,2 +1,7 @@
 # Project-Physical-Computing-2025
-###Project Physical Computing 2025 - IT KMITL
+## Project Physical Computing 2025 - IT KMITL
+### สมาชิกกลุ่ม
+**1.นางสาวพลอยชมพู จินดามัย 67070110**
+2.นายภูวนัส ใจจิตแจ่ม 67070139
+3.นางสาวญาดากรกฎ บุญราย 67070223
+**_4.นางสาวนิตยาภรณ์ คงแก้ว 67070244_**
