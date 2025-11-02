@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>ToDoList-PhyCom</title>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import {
+      getDatabase,
+      ref,
+      push,
+      set,
+      update,
+      remove,
+      child,
+      onChildAdded,
+      onChildChanged,
+      onChildRemoved,
+      off
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+    // ================= CONFIG =================
+    const firebaseConfig = {
+      apiKey: "AIzaSyBofp1wnHSx08c_nWQTJfQ62ODNEp6RX_4",
+      authDomain: "todolist-phycom.firebaseapp.com",
+      databaseURL: "https://todolist-phycom-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "todolist-phycom",
+      storageBucket: "todolist-phycom.appspot.com",
+      messagingSenderId: "129984207885",
+      appId: "1:129984207885:web:55c159d6038ba9f47f4944"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    let tasksRef = null;
+    const list = document.getElementById("list");
+    const who = document.getElementById("who");
+    const form = document.getElementById("form");
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // ========== LOGIN / LOGOUT ==========
+    window.loginGoogle = async () => {
+      try {
+        await signInWithPopup(auth, new GoogleAuthProvider());
+      } catch (e) {
+        alert("Login with Google ล้มเหลว: " + e.code);
+        console.error(e);
+      }
+    };
+    window.logout = async () => {
+      try {
+        await signOut(auth);
+      } catch (e) {
+        alert("Logout ล้มเหลว: " + e.code);
+        console.error(e);
+      }
+    };
+
+    // ========== ADD TASK ==========
+    window.addTask = async function () {
+      if (!auth.currentUser) { alert("กรุณา Login ก่อน"); return; }
+
+      const task = document.getElementById("task").value.trim();
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      if (!task || !date || !time) {
+        alert("กรุณากรอกข้อมูลให้ครบ");
+        return;
+      }
+
+      const ts = new Date(`${date}T${time}:00+07:00`).getTime();
+
+      try {
+        const newRef = push(tasksRef);
+        await set(newRef, { task, date, time, ts, done: false });
+        document.getElementById("task").value = "";
+        alert("เพิ่มงานสำเร็จ!");
+        console.log(ts);
+      } catch (e) {
+        alert("บันทึกไม่สำเร็จ: " + e.code);
+        console.error(e);
+      }
+    };
+
+    // ========== TOGGLE / DELETE ==========
+    function taskRef(id) { return child(tasksRef, id); }
+
+    async function toggleDone(id, checked) {
+      try {
+        await update(taskRef(id), { done: checked });
+      } catch (e) {
+        alert("อัปเดตสถานะไม่สำเร็จ: " + e.code);
+        console.error(e);
+      }
+    }
+
+    async function deleteTask(id) {
+      try {
+        await remove(taskRef(id));
+      } catch (e) {
+        alert("ลบงานไม่สำเร็จ: " + e.code);
+        console.error(e);
+      }
+    }
+
+    // ========== RENDER ==========
+    function renderTask(snap) {
+      const data = snap.val();
+      const li = document.createElement("li");
+      li.id = `item-${snap.key}`;
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = !!data.done;
+      checkbox.onchange = (e) => toggleDone(snap.key, e.target.checked);
+
+      const text = document.createElement("span");
+      const timeText = `${data.date || ""} ${data.time || ""}`;
+      text.textContent = `${timeText} — ${data.task || "(ไม่มีชื่อ)"}`;
+      text.style.textDecoration = data.done ? "line-through" : "none";
+
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "ลบ";
+      delBtn.style.marginLeft = "10px";
+      delBtn.onclick = () => deleteTask(snap.key);
+
+      li.appendChild(checkbox);
+      li.appendChild(text);
+      li.appendChild(delBtn);
+      list.appendChild(li);
+    }
+
+    // ========== ATTACH LISTENERS ==========
+    function attachListeners() {
+      onChildAdded(tasksRef, (snap) => renderTask(snap));
+      onChildChanged(tasksRef, (snap) => {
+        const li = document.getElementById(`item-${snap.key}`);
+        if (!li) return;
+        const { task, date, time, done } = snap.val();
+        const checkbox = li.querySelector('input[type="checkbox"]');
+        const text = li.querySelector('span');
+        checkbox.checked = !!done;
+        text.textContent = `${date} ${time} — ${task}`;
+        text.style.textDecoration = done ? "line-through" : "none";
+      });
+      onChildRemoved(tasksRef, (snap) => {
+        const li = document.getElementById(`item-${snap.key}`);
+        if (li) li.remove();
+      });
+    }
+
+    // ========== AUTH STATE ==========
+    onAuthStateChanged(auth, (user) => {
+      list.innerHTML = "";
+      if (tasksRef) off(tasksRef);
+      if (user) {
+        who.textContent = user.displayName || user.email || user.uid;
+        form.style.display = "block";
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+        tasksRef = ref(db, `tasklist/${user.uid}`);
+        attachListeners();
+      } else {
+        who.textContent = "ยังไม่ได้เข้าสู่ระบบ";
+        form.style.display = "none";
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+        tasksRef = null;
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <h2>ToDo List - PhyCom</h2>
+
+  <div>
+    <strong>สถานะ:</strong> <span id="who">กำลังตรวจสอบ...</span>
+    <div style="margin-top:8px">
+      <button id="loginBtn" onclick="loginGoogle()">Login with Google</button>
+      <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
+    </div>
+  </div>
+
+  <div id="form" style="display:none; margin-top:12px">
+    <input id="task" placeholder="ชื่อ Task" />
+    <input id="date" type="date" />
+    <input id="time" type="time" />
+    <button onclick="addTask()">เพิ่ม</button>
+  </div>
+
+  <ul id="list" style="margin-top:12px"></ul>
+</body>
+</html>
