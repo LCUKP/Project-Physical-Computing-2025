@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jum-Wai • login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.cdnfonts.com/css/fc-minimal" rel="stylesheet"> <!--Font-FC Minimal-->
+  <style>
+    html, body {
+      font-family: 'FC Minimal', 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, sans-serif;
+      letter-spacing: 0.3px;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-[#0f4c93] via-[#0e4a89] to-[#1674e1]">
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur shadow-[0_6px_12px_rgba(0,0,0,0.15)]">
+    <nav class="mx-auto w-[92vw] max-w-[1100px] flex items-center justify-between py-3 md:py-4">
+      <a href="#" id="homeLogo"
+        class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#0A4A92] hover:text-[#6aa1d4] transition-colors">
+        Jum-Wai
+      </a>
+
+      <!-- Desktop เฉพาะ Log in -->
+      <ul class="hidden md:flex items-center gap-6 lg:gap-8 text-base lg:text-lg font-semibold">
+        <li>
+          <a href="login.html"
+             class="rounded-full bg-[#0A4A92] px-4 py-2 text-white hover:brightness-110 hover:scale-[1.03] transition">
+             Log in
+          </a>
+        </li>
+      </ul>
+
+      <!-- Mobile: Hamburger -->
+      <button id="navToggle"
+        class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg text-slate-600 hover:bg-black/5"
+        aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Mobile -->
+    <aside id="mobileMenu"
+      class="fixed top-0 right-0 z-[60] h-[100dvh] w-72 max-w-[85vw] bg-white shadow-2xl
+             translate-x-full transition-transform duration-500 ease-in-out md:hidden">
+      <button id="closeMenu"
+        class="absolute top-4 right-4 text-slate-400 hover:text-[#0A64E1] text-xl leading-none" aria-label="Close menu">✕</button>
+
+      <nav class="pt-16 p-6 space-y-3">
+        <a class="block rounded-lg px-3 py-2 font-semibold text-white bg-[#0A64E1] text-center"
+           href="login.html">Log in</a>
+      </nav>
+    </aside>
+
+    <!-- Overlay -->
+    <div id="overlay"
+      class="fixed inset-0 z-[50] hidden bg-black/30 opacity-0 transition-opacity duration-300 md:hidden"></div>
+  </header>
+
+  <main class="mx-auto w-[92vw] max-w-[1100px]">
+    <section class="flex min-h-[70vh] md:min-h-[78vh] items-center justify-center text-center">
+      <div class="w-full px-2">
+        <h1 class="text-[36px] sm:text-[48px] md:text-[72px] lg:text-[80px] leading-[1.05]
+                   font-extrabold text-white drop-shadow-[0_8px_16px_rgba(0,0,0,.35)]">
+          Welcome
+        </h1>
+        <p class="mt-4 sm:mt-5 text-xl sm:text-2xl md:text-[32px] font-extrabold text-white/90
+                  drop-shadow-[0_6px_14px_rgba(0,0,0,.35)]">
+          Smart IOT To Do List
+        </p>
+
+        <!-- Sign in with Google -->
+        <button id="googleBtn"
+          class="mx-auto mt-8 sm:mt-10 inline-flex items-center gap-3 rounded-full bg-white px-4 sm:px-5 py-2.5
+                 text-sm sm:text-base font-semibold text-slate-700
+                 shadow-[0_6px_0_rgba(0,0,0,.25),0_12px_24px_rgba(0,0,0,.25)]
+                 hover:shadow-[0_4px_0_rgba(0,0,0,.25),_0_10px_20px_rgba(0,0,0,.25)]
+                 active:translate-y-[1px] transition">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="h-5 w-5">
+            <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.5 29.3 36 24 36 16.8 36 11 30.2 11 23S16.8 10 24 10c3.1 0 5.9 1.1 8.1 2.9l5.7-5.7C34.2 3.3 29.3 1 24 1 11.9 1 2 10.9 2 23s9.9 22 22 22c12.1 0 22-9.9 22-22 0-1.3-.1-2.5-.4-3.5z"/>
+            <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16.6 19 14 24 14c3.1 0 5.9 1.1 8.1 2.9l5.7-5.7C34.2 7.3 29.3 5 24 5 16 5 9.1 9.5 6.3 14.7z"/>
+            <path fill="#4CAF50" d="M24 41c5.2 0 9.9-2 13.4-5.3l-6.2-5.1C29.2 31.8 26.7 33 24 33c-5.2 0-9.6-3.5-11.2-8.2l-6.5 5C9.1 36.5 16 41 24 41z"/>
+            <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1.3 3.7-4.8 6.5-9.3 6.5-5.2 0-9.6-3.5-11.2-8.2l-6.5 5C9.1 36.5 16 41 24 41c12.1 0 22-9.9 22-22 0-1.3-.1-2.5-.4-3.5z"/>
+          </svg>
+          Sign in with Google
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- เส้นขอบ -->
+  <div class="mx-auto w-[92vw] max-w-[1100px] mb-6">
+    <div class="h-[3px] rounded-full bg-white/25"></div>
+  </div>
+
+  <script>
+    // Drawer controls
+    const navToggle  = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay    = document.getElementById('overlay');
+    const closeBtn   = document.getElementById('closeMenu');
+
+    function openMenu() {
+      mobileMenu.classList.remove('translate-x-full');
+      overlay.classList.remove('hidden');
+      requestAnimationFrame(()=> overlay.classList.add('opacity-100'));
+      document.body.classList.add('overflow-hidden'); // lock scroll
+      navToggle?.setAttribute('aria-expanded','true');
+    }
+    function closeMenu() {
+      mobileMenu.classList.add('translate-x-full');
+      overlay.classList.remove('opacity-100');
+      setTimeout(()=> overlay.classList.add('hidden'), 250);
+      document.body.classList.remove('overflow-hidden');
+      navToggle?.setAttribute('aria-expanded','false');
+    }
+
+    navToggle?.addEventListener('click', () => {
+      const opened = !mobileMenu.classList.contains('translate-x-full');
+      opened ? closeMenu() : openMenu();
+    });
+    overlay?.addEventListener('click', closeMenu);
+    closeBtn?.addEventListener('click', closeMenu);
+    window.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+    // ปุ่ม Sign in → ไปหน้าแอปหลัก
+    document.getElementById('googleBtn')?.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

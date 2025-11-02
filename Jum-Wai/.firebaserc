@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "todolist-phycom",
+    "jumwai": "todolist-phycom"
+  },
+  "targets": {},
+  "etags": {}
+}
