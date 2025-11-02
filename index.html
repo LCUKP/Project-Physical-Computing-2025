@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Smart IOT To Do List</title>
   <link href="./output.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <style>
+  body {
+    font-family: 'Sarabun', sans-serif;
+  }
   body{
     background-color: #EBEEF9;
   }
@@ -36,7 +40,7 @@
   </div>
   <div>
     <h1 class="flex justify-center text-5xl font-bold mt-20 text-[#8294D6]">What make this project special?</h1>
-    <p class="flex justify-center text-center text-xl mt-10 text-[#525353] max-w-[1000px] mx-auto">ความโดดเด่นของโปรเจคเราคือ สามารถแจ้งเตือนงานแบบเรียลไทม์ผ่านอุปกรณ์ Arduino โดยใช้สัญญาณเสียง หน้าจอแสดงผล และไฟกระพริบ แตกต่างจากระบบจัดการงานทั่วไปที่แสดงข้อมูลเฉพาะบนหน้าจอคอมพิวเตอร์หรือเว็บไซต์ ระบบนี้ช่วยให้ผู้ใช้งานรับรู้การแจ้งเตือนได้ทันทีผ่านอุปกรณ์จริง ทำให้มีประสิทธิภาพมากขึ้น</p>
+    <p class="flex justify-center text-center text-xl mt-10 text-[#525353] max-w-[800px] mx-auto">ความโดดเด่นของโปรเจคเราคือ สามารถแจ้งเตือนงานแบบเรียลไทม์ผ่านอุปกรณ์ Arduino โดยใช้สัญญาณเสียง หน้าจอแสดงผล และไฟกระพริบ แตกต่างจากระบบจัดการงานทั่วไปที่แสดงข้อมูลเฉพาะบนหน้าจอคอมพิวเตอร์หรือเว็บไซต์ ระบบนี้ช่วยให้ผู้ใช้งานรับรู้การแจ้งเตือนได้ทันทีผ่านอุปกรณ์จริง ทำให้มีประสิทธิภาพมากขึ้น</p>
   </div>
   <div class="justify-center items-center">
     <h1 class="flex justify-center text-5xl mt-20 font-bold text-[#8294D6]">Source Code</h1>
@@ -116,7 +120,7 @@ void setup() {
     </div>
     <section class="mx-auto max-w-5xl px-4 py-10">
   <h1 class="flex justify-center text-5xl mt-20 mb-10 font-bold text-[#8294D6]">Learn more about our Project</h1>
-    <div class="relative w-full overflow-hidden rounded-xl shadow-lg bg-black" style="padding-top:56.25%;">
+    <div class="relative w-full overflow-hidden rounded-xl shadow-lg bg-black mt-15" style="padding-top:56.25%;">
       <iframe
         class="absolute inset-0 w-full h-full"
         src="https://www.youtube.com/embed/zcwLETUvpwc?si=7_p55COQrSyDC3gX" 
@@ -131,35 +135,14 @@ void setup() {
     <div id = "member">
         <h1 class="flex justify-center text-5xl mt-20 font-bold text-[#8294D6]">Our Team</h1>
     </div>
-    <div class = "flex justify-center mt-17">
-    <div class= "bg-white w-[350px] h-[420px] rounded-2xl mx-10 shadow-lg transition-transform duration-200 hover:scale-101">
-      <img src="./img/ploy_img.jpg" class="w-[250px] h-[320px] mt-6 mx-auto">
-      <div class = "flex flex-col items-center text-center mt-5">
-        <p class="text-[#525353]">นางสาวพลอยชมพู จินดามัย 67070110</p>
-      </div>
+    <div class="flex justify-center items-center mt-12">
+      <img src="./img/member_thai1.png" class="w-[350px] h-[405px] transition-transform duration-200 hover:scale-101">
+      <img src="./img/member_thai2.png" class="w-[350px] h-[405px] ml-7 transition-transform duration-200 hover:scale-101">
     </div>
-    <div class="bg-white w-[350px] h-[420px] rounded-2xl mx-10 shadow-lg transition-transform duration-200 hover:scale-101">
-        <img src="./img/member2.png" class="w-[319px] h-[320px] mt-6 mx-auto">
-        <div class="flex flex-col items-center text-center mt-5">
-            <p class="text-[#525353]">นายภูวนัส ใจจิตแแจ่ม 67070139</p>
-        </div>
+    <div class="flex justify-center items-center mt-5">
+      <img src="./img/member_thai3.png" class="w-[350px] h-[405px] transition-transform duration-200 hover:scale-101">
+      <img src="./img/member_thai4.png" class="w-[350px] h-[405px] ml-7 transition-transform duration-200 hover:scale-101">
     </div>
-    </div>
-    <div class = "flex justify-center mt-10">
-    <div class="bg-white w-[350px] h-[420px] rounded-2xl mx-10 shadow-lg transition-transform duration-200 hover:scale-101">
-        <img src="./img/member3.png" class="w-[350px] h-[320px] mt-6 mx-auto">
-        <div class="flex flex-col items-center text-center mt-5">
-            <p class="text-[#525353]">นางสาวญาดากรกฎ บุญราย 67070223</p>
-        </div>
-    </div>
-    <div class="bg-white w-[350px] h-[420px] rounded-2xl mx-10 shadow-lg transition-transform duration-200 hover:scale-101">
-        <img src="./img/member3.png" class="w-[350px] h-[320px] mt-6 mx-auto">
-        <div class="flex flex-col items-center text-center mt-5">
-            <p class="text-[#525353]">นางสาวนิตยาภรณ์ คงแก้ว 67070244</p>
-        </div>
-    </div>
-    </div>
-  </div>
   <div class = "h-30"></div>
 </body> 
 </html>
