@@ -1364,3 +1364,155 @@
     }
   }
 }
+
+/* ====== tiny utilities ที่ Tailwind อาจไม่มีใน build ====== */
+.hover\:scale-101:hover{ transform: scale(1.01); }
+.hover\:scale-105:hover{ transform: scale(1.05); }
+.hover\:scale-107:hover{ transform: scale(1.07); }
+.rounded-4xl{ border-radius: 2rem; }
+.mt-15{ margin-top: 3.75rem; }
+.mt-17{ margin-top: 4.25rem; }
+.h-30{ height: 7.5rem; }
+
+/* ====== จอเล็ก ≤600px (มือถือ) ====== */
+@media (max-width: 600px){
+
+  /* เอาแถบบนกลับมา + ทำให้หายล้น */
+  .desktop{ display:block !important; }
+  .desktop .h-\[110px\]{
+    height:auto !important;
+    padding:10px 10px !important;
+  }
+  .desktop .flex{ flex-wrap:wrap !important; gap:.5rem !important; }
+  .desktop .flex.items-center.justify-center{ justify-content:space-between !important; }
+  .desktop img{ width:36px !important; height:36px !important; }
+  .desktop a{ font-size:1rem !important; margin-left:.75rem !important; }
+  .ml-115{ margin-left:0 !important; } /* กันล้นขวา */
+
+  /* Heading/ข้อความอ่านง่ายขึ้น */
+  h1{ font-size:1.5rem; line-height:2rem; }
+  .text-4xl{ font-size:1.5rem !important; line-height:2rem !important; }
+  .text-3xl{ font-size:1.375rem !important; line-height:1.875rem !important; }
+  .text-2xl{ font-size:1.25rem !important; line-height:1.75rem !important; }
+  .text-xl{ font-size:1.125rem !important; line-height:1.5rem !important; }
+  .text-md{ font-size:0.95rem !important; }
+  .mt-20{ margin-top:1.5rem !important; }
+
+  /* กล่อง/ปุ่มให้พอดีจอเล็ก */
+  .w-\[850px\]{ width:100% !important; max-width:850px; padding:1rem !important; }
+  .w-\[800px\]{ width:100% !important; max-width:800px; height:60vh !important; }
+  a[href*="github.com/LCUKP/Project-Physical-Computing-2025"]{
+    width:92% !important; max-width:420px; height:56px !important;
+    font-size:1.125rem !important; line-height:1.5rem !important;
+  }
+  /* ปุ่ม Poster */
+  a[href=""]{
+    width:92% !important; max-width:420px; height:56px !important;
+    font-size:1rem !important; line-height:1.25rem !important;
+  }
+
+  /* แถว Hardware → 2 คอลัมน์ (หรือ 1 ถ้าหน้าจอแคบมาก) */
+  .flex.justify-center.items-center{ flex-wrap:wrap; gap:.75rem; }
+  img[src*="board_thai.png"],
+  img[src*="light_thai.png"],
+  img[src*="oled_thai.png"],
+  img[src*="buzzer_thai.png"]{
+    flex:1 1 calc(50% - .75rem);
+    max-width:calc(50% - .75rem);
+    width:100%;
+    height:auto !important;
+  }
+  @media (max-width: 420px){
+    img[src*="board_thai.png"],
+    img[src*="light_thai.png"],
+    img[src*="oled_thai.png"],
+    img[src*="buzzer_thai.png"]{
+      flex-basis:100%; max-width:100%;
+    }
+  }
+
+  /* ทีมงาน → 2 คอลัมน์ (หรือ 1 ถ้าหน้าจอแคบมาก) */
+  #member + .flex{ flex-wrap:wrap; gap:.75rem; }
+  #member + .flex img{
+    flex:1 1 calc(50% - .75rem);
+    max-width:calc(50% - .75rem);
+    width:100%; height:auto !important;
+  }
+  @media (max-width: 420px){
+    #member + .flex img{ flex-basis:100%; max-width:100%; }
+  }
+}
+
+/* ====== iPad 601–1024px ====== */
+@media (min-width:601px) and (max-width:1024px){
+
+  /* header สมดุล ไม่แน่น */
+  .desktop{ display:block; }
+  .desktop .h-\[110px\]{ height:auto; padding:12px 16px; }
+  .desktop .flex{ flex-wrap:wrap; gap:.5rem; }
+  .desktop img{ width:44px; height:44px; }
+  .desktop a{ font-size:1.125rem; }
+  .ml-115{ margin-left:1rem !important; }
+
+  /* กล่องโค้ด/คอนเทนต์พอดีตา */
+  .w-\[850px\]{ width:95% !important; }
+  .w-\[800px\]{ width:100% !important; height:45vh !important; }
+
+  /* Hardware & ทีม → 2 คอลัมน์ */
+  .flex.justify-center.items-center{ flex-wrap:wrap; gap:1rem; }
+  img[src*="board_thai.png"],
+  img[src*="light_thai.png"],
+  img[src*="oled_thai.png"],
+  img[src*="buzzer_thai.png"]{
+    flex:1 1 calc(50% - 1rem);
+    max-width:calc(50% - 1rem);
+    width:100%; height:auto !important;
+  }
+  #member + .flex{ flex-wrap:wrap; gap:1rem; }
+  #member + .flex img{
+    flex:1 1 calc(50% - 1rem);
+    max-width:calc(50% - 1rem);
+    width:100%; height:auto !important;
+  }
+}
+
+/* ====== จอใหญ่ ≥1281px: จำกัดความกว้างกลางหน้า ====== */
+@media (min-width:1281px){
+  .mx-auto{ max-width:1100px; }
+  .max-w-5xl{ max-width:1100px; }
+}
+
+
+/* ===== iPad / Tablet fix (768–1024px) ===== */
+@media (min-width:768px) and (max-width:1024px){
+  /* ให้บาร์พับได้และเว้นระยะเหมาะสม */
+  .desktop .h-\[110px\]{ height:auto !important; padding:12px 16px !important; }
+  .desktop .flex{ flex-wrap:wrap !important; justify-content:space-between !important; gap:.75rem !important; }
+
+  /* ลดตัวอักษรเมนูไม่ให้ล้น */
+  .desktop a{ font-size:1.05rem !important; margin-left:0 !important; }
+
+  /* margin-left 115px เดิมทำให้เบียดขวา */
+  .ml-115{ margin-left:1rem !important; }
+
+  /* ปุ่มสลับภาษา: ยกเลิก absolute ของรูปให้จัดบรรทัดปกติ */
+  .desktop a.group{ width:64px !important; height:24px !important; }
+  .desktop a.group img{
+    position:static !important;   /* เคย absolute เลยหล่นลงกลาง */
+    inset:auto !important;
+    width:64px !important; height:24px !important;
+    display:block;
+  }
+}
+
+/* ===== สำรอง: มือถือ ≤600px (กันซ้ำ) ===== */
+@media (max-width:600px){
+  .desktop{ display:block !important; }
+  .desktop .h-\[110px\]{ height:auto !important; padding:10px 12px !important; }
+  .desktop .flex{ flex-wrap:wrap !important; justify-content:space-between !important; gap:.5rem !important; }
+  .desktop img{ width:36px !important; height:36px !important; }
+  .desktop a{ font-size:1rem !important; margin-left:.5rem !important; }
+  .ml-115{ margin-left:0 !important; }
+  .desktop a.group{ width:56px !important; height:22px !important; }
+  .desktop a.group img{ position:static !important; width:56px !important; height:22px !important; }
+}
