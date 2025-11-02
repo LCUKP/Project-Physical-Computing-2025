@@ -5,20 +5,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <title>To-Do List</title>
+  <title>Jum-Wai</title>
+  <!-- โหลดฟอนต์ FC Minimal จาก CDN -->
+  <link href="https://fonts.cdnfonts.com/css/fc-minimal" rel="stylesheet">
+  <style>
+    /* ใช้ FC Minimal เป็นฟอนต์หลักทั้งเว็บไซต์ */
+    html,
+    body {
+      font-family: 'FC Minimal', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    input,
+    button,
+    select,
+    textarea,
+    label {
+      font: inherit;
+    }
+  </style>
 </head>
 
-<body class="min-h-screen bg-gradient-to-b from-pink-100 via-purple-100 to-indigo-200">
-  <header class="sticky top-0 z-50 h-14 bg-white/70 backdrop-blur-md shadow-sm">
-    <nav class="mx-auto w-[640px] max-w-[92vw] flex items-center justify-between py-3">
-      <!-- ซ้าย -->
-      <a href="#" class="text-xl font-bold tracking-tight">Jum-Wai</a>
-
+<body class="min-h-screen bg-[#7ea4c8]">
+  <header class="sticky top-0 z-50 h-14 bg-white shadow-[0_8px_20px_rgba(0,0,0,0.15)]">
+    <nav class="mx-auto w-[92vw] max-w-[640px] flex items-center justify-between py-3">
+      <!-- wab name -->
+      <a href="#" id="homeLogo"
+        class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#0A4A92] hover:text-[#6aa1d4] transition-all duration-300">Jum-Wai</a>
       <!-- nav bar desktop -->
-      <ul class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-700">
-        <li><a href="#" class="nav-link hover:text-rose-500" data-target="todoPanel">Home</a></li>
-        <li><a href="#" class="nav-link hover:text-rose-500" data-target="tasklist">Tasks</a></li>
-        <li><a href="#" class="nav-link hover:text-rose-500" data-target="calendar">Calendar</a></li>
+      <ul class="hidden md:flex items-center gap-6 text-lg font-medium text-slate-700">
+        <li><a href="#" class="nav-link hover:text-[#6aa1d4]" data-target="todoPanel">Home</a></li>
+        <li><a href="#" class="nav-link hover:text-[#6aa1d4]" data-target="tasklist">Tasks</a></li>
+        <li><a href="#" class="nav-link hover:text-[#6aa1d4]" data-target="calendar">Calendar</a></li>
+        <li><a href="#" class="nav-link hover:text-[#6aa1d4]" data-target="login">Log out</a></li>
       </ul>
 
       <!-- ปุ่ม Hamburger -->
@@ -37,15 +55,15 @@
          z-[60] md:hidden">
       <!-- ปุ่มปิด -->
       <button id="Close"
-        class="absolute top-4 right-4 text-slate-400 hover:text-rose-500 hover:scale-110 transform transition text-lg leading-none">✕</button>
+        class="absolute top-4 right-4 text-slate-400 hover:text-[#6aa1d4] hover:scale-110 transform transition text-lg leading-none">✕</button>
 
-      <!-- เนื้อหาเมนู -->
+      <!-- เนื้อหา nav bar -->
       <div class="p-6 pt-16 space-y-4">
-        <a href="#" class="nav-link block rounded-lg px-3 py-2 hover:text-rose-500 hover:bg-black/5 hover:font-bold"
+        <a href="#" class="nav-link block rounded-lg px-3 py-2 hover:text-[#6aa1d4] hover:bg-black/5 hover:font-bold"
           data-target="todoPanel">Home</a>
-        <a href="#" class="nav-link block rounded-lg px-3 py-2 hover:text-rose-500 hover:bg-black/5 hover:font-bold"
+        <a href="#" class="nav-link block rounded-lg px-3 py-2 hover:text-[#6aa1d4] hover:bg-black/5 hover:font-bold"
           data-target="tasklist">Tasks</a>
-        <a href="#" class="nav-link block rounded-lg px-3 py-2 hover:text-rose-500 hover:bg-black/5 hover:font-bold"
+        <a href="#" class="nav-link block rounded-lg px-3 py-2 hover:text-[#6aa1d4] hover:bg-black/5 hover:font-bold"
           data-target="calendar">Calendar</a>
       </div>
     </aside>
@@ -56,44 +74,51 @@
 
   </header>
   <!--กล่อง To-do list-->
-  <div id="todoPanel" class="relative z-10 mx-auto mt-10 mb-4 w-[640px] max-w-[92vw] bg-white rounded-[22px] p-6">
-    <h1 class="text-2xl font-bold tracking-tight mb-5">To-Do List</h1>
+  <div id="todoPanel"
+    class="relative z-10 mx-auto mt-10 mb-4 w-[92vw] max-w-[640px] rounded-[28px] p-6 md:p-8 bg-white shadow-[0_14px_34px_rgba(17,24,39,.16)] ring-1 ring-black/5">
+    <h1 class="text-2xl font-extrabold tracking-tight mb-5 text-[#0A4A92]">To-Do List</h1>
     <!-- Task input-->
     <label class="sr-only" for="task">Add your task</label>
-    <input id="task" type="text" placeholder="Add your task"
-      class="w-full py-3 rounded-full bg-neutral-200 placeholder-neutral-500 px-6" />
+    <input id="task" type="text" placeholder="Add your task" class="w-full py-3 px-6 rounded-full bg-[#eeeeee] text-slate-700 placeholder-slate-600
+         shadow-[inset_1px_1px_3px_rgba(0,0,0,0.15),_0_2px_4px_rgba(255,255,255,0.5)]
+         outline-none focus:ring-2 focus:ring-sky-200" />
 
-    <div class="mt-4 flex justify-between w-full">
-      <div>
-        <label for="due-time" class="text-lg font-bold mb-3 block">Time</label>
-        <input id="due-time" type="time"
-          class="w-40 h-10 rounded-full bg-neutral-200 px-4 text-center outline-none focus:ring-2 focus:ring-black/10" />
+    <!-- Time, Date Responsive -->
+    <div class="mt-4 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <!-- Time -->
+      <div class="w-full md:w-[48%] flex flex-col items-center md:items-start">
+        <label for="due-time" class="text-lg font-extrabold mb-2 text-center md:text-left text-[#0A4A92]">Time</label>
+        <input id="due-time" type="time" class="h-11 w-64 md:w-full mx-auto rounded-full bg-[#e6e6e6] text-center text-slate-700 pr-5
+         shadow-[inset_1px_1px_3px_rgba(0,0,0,0.15),_0_2px_4px_rgba(255,255,255,0.5)]
+         outline-none focus:ring-2 focus:ring-sky-200 transition-all duration-200" />
       </div>
-
       <!-- Date -->
-      <div class="text-right">
-        <label for="task-date" class="text-lg font-bold mb-3 block">Date</label>
-        <input id="task-date" type="date"
-          class="w-52 h-10 rounded-full bg-neutral-200 px-4 text-center outline-none focus:ring-2 focus:ring-black/10" />
+      <div class="w-full md:w-[48%] flex flex-col items-center md:items-end">
+        <label for="task-date" class="text-lg font-extrabold mb-2 text-center md:text-right text-[#0A4A92]">Date</label>
+        <input id="task-date" type="date" class="h-11 w-64 md:w-full mx-auto rounded-full bg-[#e6e6e6] text-center text-slate-700 pr-5
+         shadow-[inset_1px_1px_3px_rgba(0,0,0,0.15),_0_2px_4px_rgba(255,255,255,0.5)]
+         outline-none focus:ring-2 focus:ring-sky-200 transition-all duration-200" />
       </div>
     </div>
 
+
     <!-- Add button -->
     <div class="mt-4 flex justify-center">
-      <button id="addBtn" type="button"
-        class="px-8 py-3 rounded-full bg-rose-500 text-white font-semibold tracking-wide active:translate-y-[2px] transition">
+      <button id="addBtn" type="button" class="px-10 py-3.5 rounded-full text-white font-semibold tracking-wide bg-[#0A4A92]
+        shadow-[0_6px_16px_rgba(0,0,0,0.15)] hover:bg-[#6aa1d4] hover:text-black hover:scale-[1.03] active:translate-y-[1px] active:shadow-[0_4px_10px_rgba(244,63,94,.35)] transition-all duration-300 ease-out
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-black-200">
         ADD
       </button>
     </div>
   </div>
   <!-- Bars Row-->
   <div id="barsRow"
-  class="hidden mx-auto w-[640px] max-w-[92vw] mt-2 mb-2 flex items-center justify-between gap-4 flex-nowrap">
+    class="hidden mx-auto w-[92vw] max-w-[640px] mt-2 mb-2 flex items-center justify-between gap-6 flex-nowrap whitespace-nowrap overflow-x-auto px-2">
     <!-- LEFT: Show bar -->
-    <div id="showBar" class="hidden flex items-center gap-2 text-sm font-bold whitespace-nowrap">
+    <div id="showBar" class="hidden flex-none shrink-0 flex items-center gap-2 text-sm font-bold whitespace-nowrap">
       <span class="font-bold text-slate-600 font-mono text-base">Show :</span>
       <div class="relative inline-flex items-center">
-        <span id="showLabel" class="font-bold text-rose-500 font-mono text-base pr-5">All</span>
+        <span id="showLabel" class="font-bold text-[#0A4A92] font-mono text-base pr-5">All</span>
         <span class="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-slate-400 text-xs">▾</span>
         <select id="showMode" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
           <option value="5">5</option>
@@ -104,10 +129,11 @@
     </div>
 
     <!-- RIGHT: Sort bar -->
-    <div id="sortBar" class="hidden items-center gap-2 text-sm font-bold whitespace-nowrap justify-end">
+    <div id="sortBar"
+      class="hidden flex-none shrink-0 ml-auto flex items-center gap-2 text-sm font-bold whitespace-nowrap">
       <span class="font-bold text-slate-600 font-mono text-base">Sort By :</span>
       <div class="relative flex items-center">
-        <span id="sortLabel" class="font-bold text-rose-500 font-mono text-base">Date ASC</span>
+        <span id="sortLabel" class="font-bold text-[#0A4A92] font-mono text-base">Date ASC</span>
         <span class="ml-1 text-slate-400 text-xs leading-none translate-y-[1px]">▾</span>
         <select id="sortMode" class="absolute inset-0 opacity-0 cursor-pointer">
           <option value="date-asc">Date ASC</option>
@@ -120,10 +146,11 @@
   </div>
 
 
-  <div id="taskListHome" class="mt-6 mx-auto w-[640px] max-w-[92vw] space-y-3"></div>
+  <div id="taskListHome" class="mt-6 mx-auto w-[92vw] max-w-[640px] space-y-3"></div>
 
   <main id="tasklist" class="hidden mt-6 pb-10 w-[640px] max-w-[92vw] mx-auto">
-    <h2 id="taskTitle" class="text-2xl font-bold text-center mb-4">Task List</h2>
+    <h2 id="taskTitle"
+      class="text-3xl font-bold text-center mb-4 text-[#0A3478] drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]">Task List</h2>
     <div id="taskListPage" class="space-y-4"></div>
   </main>
   <section class="mt-6 pb-10 w-[640px] max-w-[92vw] mx-auto">
@@ -132,7 +159,23 @@
       <div class="bg-white rounded-[22px] p-6 shadow">
         <div class="flex items-center justify-between mb-4">
           <button id="calPrev" class="px-3 py-1 rounded-lg ring-1 ring-black/10 hover:bg-black/5">‹</button>
-          <h2 id="calTitle" class="text-xl font-semibold"></h2>
+
+          <!-- Month + Year + Dropdown -->
+          <div class="flex items-center gap-3">
+            <h2 id="calMonthTitle" class="text-xl font-semibold"></h2>
+
+            <!-- Year Dropdown -->
+            <div class="flex items-center justify-center gap-1 mt-1">
+              <div class="relative inline-flex items-center">
+                <select id="yearSelect" class="appearance-none border border-slate-300 rounded-lg pl-3 pr-7 py-1 text-lg font-semibold
+                 bg-white text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2
+                 focus:ring-rose-300 cursor-pointer"></select>
+                <span
+                  class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 text-xs">▾</span>
+              </div>
+            </div>
+          </div>
+
           <button id="calNext" class="px-3 py-1 rounded-lg ring-1 ring-black/10 hover:bg-black/5">›</button>
         </div>
 
@@ -155,7 +198,8 @@
       <div class="mt-6 bg-white rounded-[22px] p-6 shadow">
         <div class="flex items-center justify-between mb-3">
           <h3 id="dayTitle" class="text-lg font-bold">Tasks on –</h3>
-          <button id="addOnThisDay" class="px-3 py-1 rounded-full bg-rose-500 text-white text-sm hover:brightness-110">
+          <button id="addOnThisDay"
+            class="px-3 py-1 rounded-full bg-[#0A4A92] text-white text-sm hover:brightness-110 hover:scale-[1.03]">
             Add on this day
           </button>
         </div>
@@ -234,7 +278,11 @@
 
     const toISO = d => d.toISOString().split('T')[0];
     const fromISO = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
-    const sameDay = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+    const sameDay = (a, b) =>
+      a && b &&
+      a.getFullYear() === b.getFullYear() &&
+      a.getMonth() === b.getMonth() &&
+      a.getDate() === b.getDate();
 
     function countTasksByDate() {
       const map = {}; for (const t of TASKS) map[t.date] = (map[t.date] || 0) + 1; return map;
@@ -276,7 +324,7 @@
         card.className = "relative bg-white rounded-[18px] shadow-[0_10px_24px_rgba(17,24,39,.1)] px-5 py-4";
         card.dataset.id = t.id;
         card.innerHTML = `
-      <button title="Delete" class="absolute top-2 right-3 text-slate-400 hover:text-rose-500 cursor-pointer transition-colors duration-200">×</button>
+      <button title="Delete" class="absolute top-2 right-3 text-slate-400 hover:text-[#6aa1d4] cursor-pointer transition-colors duration-200">×</button>
       <div class="flex items-center gap-3 py-1">
         <button class="w-8 h-8 flex-shrink-0 rounded-[10px] border-2 border-indigo-100 bg-white flex items-center justify-center self-center">
           <span class="text-indigo-500 text-sm ${t.done ? '' : 'hidden'}">✓</span>
@@ -402,41 +450,33 @@
   </script>
 
   <script>
-    // จัดการคลิกทุกลิงก์ใน navbar (desktop + mobile)
-    document.querySelectorAll('.nav-link[data-target]').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = link.getAttribute('data-target');
-
-        // แสดง section, ตั้ง active, ปิด navbar
-        showSection(target);
-        setActiveMenu(target);
-        closeDrawerIfOpen();
-        smoothScrollTo(target);
-
-        // โชว์หัวข้อ Task List เฉพาะหน้า Tasks
-        if (target === 'tasklist') {
-          const title = document.getElementById('taskTitle');
-          title?.classList.remove('hidden');
-        }
+    function setActiveMenu(targetId) {
+      document.querySelectorAll('.nav-link').forEach(link => {
+        const isActive = link.getAttribute('data-target') === targetId;
+        link.classList.toggle('text-[#0A4A92]', isActive);
+        link.classList.toggle('font-bold', isActive);
       });
-    });
+    }
 
-    document.querySelectorAll('[data-target="todoPanel"]').forEach(el => {
-      el.addEventListener('click', e => {
-        e.preventDefault();
-        showSection('todoPanel'); // แสดงเฉพาะ Home
-      });
-    });
-  </script>
+    function closeDrawerIfOpen() {
+      const drawer = document.getElementById('mobileNavbar');
+      const overlay = document.getElementById('overlay');
+      if (!drawer || !overlay) return;
+      drawer.classList.add('translate-x-full');
+      overlay.classList.add('hidden');
+    }
 
-  <script>
+    function smoothScrollTo(target) {
+      const el = document.getElementById(target);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // เรียก setActiveMenu ทุกครั้งที่เปลี่ยน section
     const SECTIONS = ["todoPanel", "tasklist", "calendar"];
     function showSection(sectionId) {
       SECTIONS.forEach(id => {
         const el = document.getElementById(id);
-        if (!el) return;
-        el.classList.toggle('hidden', id !== sectionId);
+        if (el) el.classList.toggle('hidden', id !== sectionId);
       });
 
       document.getElementById("taskListHome")
@@ -445,11 +485,32 @@
       CURRENT_SECTION = sectionId;
       placeBarsRow(sectionId);
       updateBarsVisibility();
+
+      // อัปเดต nav สีแดง
+      setActiveMenu(sectionId);
     }
   </script>
 
   <script>
-    const calTitle = document.getElementById('calTitle');
+    document.querySelectorAll('.nav-link[data-target]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = link.getAttribute('data-target');
+
+        // ไปหน้าเป้าหมาย อัปเดต nav สีแดง
+        showSection(target);
+        setActiveMenu(target);
+
+        // ปิดเมนู mobile ถ้าเปิดอยู่
+        const drawer = document.getElementById('mobileNavbar');
+        const overlay = document.getElementById('overlay');
+        drawer?.classList.add('translate-x-full');
+        overlay?.classList.add('hidden');
+      });
+    });
+  </script>
+
+  <script>
     const calGrid = document.getElementById('calGrid');
     const dayTitle = document.getElementById('dayTitle');
     const dayList = document.getElementById('dayList');
@@ -457,31 +518,54 @@
 
     function renderCalendar() {
       const y = calMonth.getFullYear(), m = calMonth.getMonth();
-      calTitle.textContent = calMonth.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+      calMonthTitle.textContent = calMonth.toLocaleDateString(undefined, { month: 'long' });
+      if (yearSelect) yearSelect.value = calMonth.getFullYear();
+
       const first = new Date(y, m, 1), last = new Date(y, m + 1, 0);
       const startWeekday = first.getDay(), totalDays = last.getDate();
       const counts = countTasksByDate();
+      const today = new Date();
 
       calGrid.innerHTML = '';
-      for (let i = 0; i < startWeekday; i++) { const hole = document.createElement('div'); hole.className = 'p-2'; calGrid.appendChild(hole); }
 
+      // ช่องว่างก่อนวันที่ 1
+      for (let i = 0; i < startWeekday; i++) {
+        const hole = document.createElement('div');
+        hole.className = 'p-2';
+        calGrid.appendChild(hole);
+      }
+
+      // วันที่ในเดือน
       for (let d = 1; d <= totalDays; d++) {
-        const cellDate = new Date(y, m, d); const iso = toISO(cellDate);
+        const cellDate = new Date(y, m, d);
+        const iso = toISO(cellDate);
+
+        const isSelected = selectedDate && sameDay(cellDate, selectedDate);
+        const isToday = sameDay(cellDate, today);
+
         const cell = document.createElement('button');
         cell.className = `
-      p-2 rounded-lg text-left ring-1 ring-black/5 hover:bg-black/5
-      ${sameDay(cellDate, new Date()) ? 'outline outline-2 outline-rose-300' : ''}
-      ${sameDay(cellDate, selectedDate) ? 'bg-rose-50' : ''}`;
+      p-2 rounded-lg text-left ring-1 hover:bg-black/5
+      ${isSelected ? 'bg-sky-100 ring-sky-300 text-[#0A64E1] font-semibold' : 'ring-black/5'}
+${isToday && !isSelected ? 'bg-[#0A64E1] text-white font-bold ring-0 shadow-[0_0_8px_rgba(10,100,225,0.3)] hover:text-black' : ''}
+    `;
         cell.innerHTML = `
       <div class="text-sm font-semibold">${d}</div>
       ${counts[iso] ? `<div class="mt-1 text-[11px] text-rose-600 font-semibold">${counts[iso]} task${counts[iso] > 1 ? 's' : ''}</div>` : ''}
     `;
-        cell.addEventListener('click', () => { selectedDate = cellDate; renderCalendar(); renderDayList(selectedDate); });
+
+        cell.addEventListener('click', () => {
+          selectedDate = new Date(cellDate);   // เปลี่ยนวันถูกเลือก
+          renderCalendar();                    // วาดใหม่
+          renderDayList(selectedDate);         // อัปเดตรายการของวันนั้น
+        });
+
         calGrid.appendChild(cell);
       }
     }
 
     function renderDayList(dateObj) {
+      if (!dateObj) { dayTitle.textContent = 'Tasks on –'; dayList.innerHTML = ''; return; }
       const iso = toISO(dateObj);
       dayTitle.textContent = `Tasks on ${dateObj.toLocaleDateString()}`;
       dayList.innerHTML = '';
@@ -497,7 +581,7 @@
         row.innerHTML = `<div class="${titleClass}">${t.title}</div>
           <div class="flex items-center gap-3">
           <div class="${timeClass}">${t.time || 'All day'}</div>
-          <button title="Delete" class="text-slate-400 hover:text-rose-500 text-lg leading-none">×</button>
+          <button title="Delete" class="text-slate-400 hover:text-[#6aa1d4] text-lg leading-none">×</button>
   </div>
 `;
 
@@ -567,13 +651,54 @@
   </script>
 
   <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    CURRENT_SECTION = 'todoPanel';
-    placeBarsRow('todoPanel');
-    refreshAllLists();
-    updateBarsVisibility();
-  });
-</script>
+    window.addEventListener('DOMContentLoaded', () => {
+      CURRENT_SECTION = 'todoPanel';
+      placeBarsRow('todoPanel');
+      refreshAllLists();
+      updateBarsVisibility();
+      setActiveMenu('todoPanel');
+      populateYearDropdown();
+    });
+  </script>
+
+  <script>
+    //กด web name แล้วกลับมาหน้า Home
+    document.getElementById('homeLogo')?.addEventListener('click', e => {
+      e.preventDefault();
+      showSection('todoPanel');
+      setActiveMenu('todoPanel');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+  <script>
+    const calMonthTitle = document.getElementById('calMonthTitle');
+    const yearSelect = document.getElementById('yearSelect');
+
+    //dropdown
+    function populateYearDropdown() {
+      if (!yearSelect) return;
+      yearSelect.innerHTML = '';
+      const currentYear = new Date().getFullYear();
+      const start = currentYear - 5;
+      const end = currentYear + 5;
+
+      for (let y = start; y <= end; y++) {
+        const opt = document.createElement('option');
+        opt.value = y;
+        opt.textContent = y; // แสดงปี ค.ศ.
+        if (y === calMonth.getFullYear()) opt.selected = true;
+        yearSelect.appendChild(opt);
+      }
+    }
+
+    // เมื่อเปลี่ยนปี
+    yearSelect?.addEventListener('change', (e) => {
+      const ad = Number(e.target.value);
+      calMonth = new Date(ad, calMonth.getMonth(), 1);
+      renderCalendar();
+    });
+  </script>
 
 
 </body>
